@@ -61,7 +61,8 @@ def get_binance_crypto_ohlc(symbol='ETH', api_key=None, days=6000):
             klines_response.raise_for_status()
             klines_data = klines_response.json()
             
-            all_klines.extend(klines_data)
+            if klines_data:
+                all_klines.extend(klines_data)
         
         # Prepare data for Google Sheets
         sheet_data = [["Date", "Open", "High", "Low", "Close", "Volume (USDT)"]]  # Header
