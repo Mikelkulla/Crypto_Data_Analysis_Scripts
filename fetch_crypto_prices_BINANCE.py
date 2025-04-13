@@ -7,10 +7,10 @@ from oauth2client.service_account import ServiceAccountCredentials
 # Configuration
 BINANCE_API_KEY = "your_binance_api_key_here"  # Optional, replace if you have one
 CREDENTIALS_FILE = "credentials.json"  # Path to your Google credentials file
-SPREADSHEET_NAME = "Beta Scores First Test"  # Name of the Google Sheet
+SPREADSHEET_NAME = "historical_prices_daily"  # Name of the Google Sheet
 MAX_LIMIT = 1000  # Binance API limit per request
 
-def get_binance_crypto_ohlc(symbol='ETH', api_key=None, days=6000):
+def get_binance_crypto_ohlc(symbol='BTC', api_key=None, days=6000):
     """
     Fetch OHLC data for multiple days from Binance API with pagination. 
     Writes to google sheets by calling the write_to_google_sheet() function
@@ -24,8 +24,8 @@ def get_binance_crypto_ohlc(symbol='ETH', api_key=None, days=6000):
     """
     try:
         # Ensure symbol ends with USDT
-        if not symbol.upper().endswith('USDT'):
-            symbol = symbol.upper() + 'USDT'
+        # if not symbol.upper().endswith('USDT'):
+        #     symbol = symbol.upper() + 'USDT'
         
         # Calculate start and end times
         now_utc = datetime.utcnow()
@@ -73,7 +73,7 @@ def get_binance_crypto_ohlc(symbol='ETH', api_key=None, days=6000):
             high = float(kline[2])
             low = float(kline[3])
             close = float(kline[4])
-            volume = float(kline[5]) * float(kline[4])  # Volume * Close price for USDT value
+            volume = float(kline[5]) # Volume * Close price for USDT value
             
             row = [date, open_price, high, low, close, volume]
             sheet_data.append(row)
@@ -101,21 +101,23 @@ def get_binance_crypto_ohlc(symbol='ETH', api_key=None, days=6000):
 
 def main():
     # Configuration
-    SYMBOL = "SOL"  # Crypto symbol (will append USDT if needed)
-    DAYS = 6000  # Number of days to fetch
-    
-    # Fetch and write OHLC data
-    result = get_binance_crypto_ohlc(
-        symbol=SYMBOL,
-        api_key=BINANCE_API_KEY,
-        days=DAYS
-    )
-    
-    if result and len(result[0]) > 1:  # Check if data was successfully fetched
-        print(f"Successfully fetched and wrote {DAYS} days of OHLC data for {SYMBOL}USDT")
-    else:
-        print(f"Failed to fetch OHLC data for {SYMBOL}USDT")
-        print(result)
+    # SYMBOL = "BTC"  # Crypto symbol (will append USDT if needed)
+    DAYS = 6000  # Number of days to fetch                  SHIBBTC , FLOKI is from bitfinex. GAL don't have. RAY from UPBIT. 
+    symbols_list = ['RUNEBTC','SNXBTC', 'ONEBTC','WOOBTC', 'YGGBTC']
+    # symbols_list = ['BTC','ETH','SOL','DOGE','ADA','RENDER','AVAX','LINK','BCH','NEAR','ALGO','AXS','GRT','AAVE','FLOKI','TFUEL','IMX','FIL','STX','INJ','LDO','GALA','CRV','RAY','CFX','RUNE','SNX','ONE','WOO','YGG']
+    for symbol in symbols_list:
+        # Fetch and write OHLC data
+        result = get_binance_crypto_ohlc(
+            symbol=symbol,
+            api_key=BINANCE_API_KEY,
+            days=DAYS
+        )
+        
+        if result and len(result[0]) > 1:  # Check if data was successfully fetched
+            print(f"Successfully fetched and wrote {DAYS} days of OHLC data for {symbol}USDT")
+        else:
+            print(f"Failed to fetch OHLC data for {symbol}USDT")
+            print(result)
 
 if __name__ == "__main__":
     main()

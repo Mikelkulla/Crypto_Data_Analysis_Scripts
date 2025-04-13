@@ -77,7 +77,7 @@ def get_coinbase_crypto_ohlc(symbol='ETH', days=6000):
             high = float(candle[2])     # High
             open_price = float(candle[3])  # Open
             close = float(candle[4])    # Close
-            volume = float(candle[5]) * close  # Volume * Close price for USD value
+            volume = float(candle[5])   # Volume * Close price for USD value
             
             row = [date, open_price, high, low, close, volume]
             sheet_data.append(row)
@@ -105,20 +105,21 @@ def get_coinbase_crypto_ohlc(symbol='ETH', days=6000):
 
 def main():
     # Configuration
-    SYMBOL = "GAL"  # Crypto symbol (will append USD if needed)
+    # SYMBOL = "GAL"  # Crypto symbol (will append USD if needed)
     DAYS = 6000  # Number of days to fetch
-    
-    # Fetch and write OHLC data
-    result = get_coinbase_crypto_ohlc(
-        symbol=SYMBOL,
-        days=DAYS
-    )
-    
-    if result and len(result[0]) > 1:  # Check if data was successfully fetched
-        print(f"Successfully fetched and wrote {DAYS} days of OHLC data for {SYMBOL}-USD")
-    else:
-        print(f"Failed to fetch OHLC data for {SYMBOL}-USD")
-        print(result)
+    symbols_list = ['GAL']
+    for symbol in symbols_list:
+        # Fetch and write OHLC data
+        result = get_coinbase_crypto_ohlc(
+            symbol=symbol,
+            days=DAYS
+        )
+        
+        if result and len(result[0]) > 1:  # Check if data was successfully fetched
+            print(f"Successfully fetched and wrote {DAYS} days of OHLC data for {symbol}-USD")
+        else:
+            print(f"Failed to fetch OHLC data for {symbol}-USD")
+            print(result)
 
 if __name__ == "__main__":
     main()

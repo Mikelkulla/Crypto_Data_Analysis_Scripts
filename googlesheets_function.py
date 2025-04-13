@@ -62,7 +62,7 @@ def write_to_google_sheet(spreadsheet_name, data, target_sheet=None, range_name=
             sheet = spreadsheet.worksheet(target_sheet)
         except gspread.exceptions.WorksheetNotFound:
             # If the specified worksheet doesn't exist, create it
-            sheet = spreadsheet.add_worksheet(title=target_sheet, rows=10000, cols=20)
+            sheet = spreadsheet.add_worksheet(title=target_sheet, rows=10000, cols=10)
             print(f"Created new worksheet: {target_sheet} in {spreadsheet_name}")
 
     # Check if a specific range is provided
