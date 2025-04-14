@@ -6,7 +6,7 @@ __pycache__/
 
 # Ignore credentials and secrets
 credentials.json
-# secret.py
-
+secret.py
+config.py
 # Ignore CSV or other sensitive data files (optional)
 # resources/*.csv
