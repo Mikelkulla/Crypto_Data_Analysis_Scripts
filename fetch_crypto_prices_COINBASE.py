@@ -72,7 +72,7 @@ def get_coinbase_crypto_ohlc(symbol='ETH', days=6000):
         sheet_data = [["Date", "Open", "High", "Low", "Close", "Volume (USDT)"]]  # Header
         for candle in all_candles:
             timestamp = candle[0]  # Unix timestamp in seconds
-            date = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d')
+            date = datetime.utcfromtimestamp(timestamp).strftime(f'%m/%d/%Y')
             low = float(candle[1])      # Low
             high = float(candle[2])     # High
             open_price = float(candle[3])  # Open

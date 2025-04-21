@@ -68,7 +68,7 @@ def get_binance_crypto_ohlc(symbol='BTC', api_key=None, days=6000):
         sheet_data = [["Date", "Open", "High", "Low", "Close", "Volume (USDT)"]]  # Header
         for kline in all_klines:
             timestamp_ms = kline[0]  # Open time in milliseconds
-            date = datetime.utcfromtimestamp(timestamp_ms / 1000).strftime('%Y-%m-%d')
+            date = datetime.utcfromtimestamp(timestamp_ms / 1000).strftime(f'%m/%d/%Y')
             open_price = float(kline[1])
             high = float(kline[2])
             low = float(kline[3])
@@ -103,7 +103,7 @@ def main():
     # Configuration
     # SYMBOL = "BTC"  # Crypto symbol (will append USDT if needed)
     DAYS = 6000  # Number of days to fetch                  SHIBBTC , FLOKI is from bitfinex. GAL don't have. RAY from UPBIT. 
-    symbols_list = ['RUNEBTC','SNXBTC', 'ONEBTC','WOOBTC', 'YGGBTC']
+    symbols_list = ['SHIBUSDT']
     # symbols_list = ['BTC','ETH','SOL','DOGE','ADA','RENDER','AVAX','LINK','BCH','NEAR','ALGO','AXS','GRT','AAVE','FLOKI','TFUEL','IMX','FIL','STX','INJ','LDO','GALA','CRV','RAY','CFX','RUNE','SNX','ONE','WOO','YGG']
     for symbol in symbols_list:
         # Fetch and write OHLC data
