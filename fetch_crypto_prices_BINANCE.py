@@ -103,7 +103,7 @@ def main():
     # Configuration
     # SYMBOL = "BTC"  # Crypto symbol (will append USDT if needed)
     DAYS = 6000  # Number of days to fetch                  SHIBBTC , FLOKI is from bitfinex. GAL don't have. RAY from UPBIT. 
-    symbols_list = ['SHIBUSDT']
+    symbols_list = ['MAGICUSDT']
     # symbols_list = ['BTC','ETH','SOL','DOGE','ADA','RENDER','AVAX','LINK','BCH','NEAR','ALGO','AXS','GRT','AAVE','FLOKI','TFUEL','IMX','FIL','STX','INJ','LDO','GALA','CRV','RAY','CFX','RUNE','SNX','ONE','WOO','YGG']
     for symbol in symbols_list:
         # Fetch and write OHLC data
